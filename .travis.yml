@@ -1,0 +1,19 @@
+sudo: false
+
+language: go
+
+go:
+         - 1.4
+         - 1.5
+         - tip
+
+matrix:
+    allow_failures:
+        - go: tip
+
+install: go get -v .
+
+script:
+    - go get -u github.com/golang/lint/golint
+    - golint ./...
+    - test `gofmt -l . | wc -l` = 0
