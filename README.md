@@ -1,5 +1,6 @@
 # Gopher
 Gopher renders little `( ◔ ౪◔)´ to the command line.
+Use gopher just for the sake of pure fun or more meaningful as a loading spinner.
 
 [![CI Status](http://img.shields.io/travis/toashd/gopher.svg?style=flat)](https://travis-ci.org/toashd/gopher)
 
@@ -12,7 +13,7 @@ $ go get github.com/toashd/gopher
 ```
 
 ## Usage
-Use gopher just for the sake of pure fun or more meaningful as a loading spinner.
+Import the gopher package
 
 ```go
 import "github.com/toashd/gopher"
