@@ -55,7 +55,7 @@ Get in touch, file an issue, fork and submit a pull requests.
 
 ## Get in touch
 
-Tobias Schmid, toashd@gmail.com, [@toashd](http://twitter.com/toashd), [toashd.com](http://toashd.com)
+Tobias Schmid, [@toashd](http://twitter.com/toashd)
 
 ## License
 
