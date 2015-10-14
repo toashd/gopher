@@ -1,7 +1,7 @@
 # Gopher
 Gopher renders little `( ◔ ౪◔)´ to the command line.
 
-Use gopher just for the sake of pure fun or more meaningful as a loading spinner.
+Use gopher just for pure fun or more meaningful as a loading spinner.
 
 [![CI Status](http://img.shields.io/travis/toashd/gopher.svg?style=flat)](https://travis-ci.org/toashd/gopher)
 
@@ -24,16 +24,16 @@ Create a new gopher
 
 ```go
 g := gopher.New()
-g.Start() // Start the gopher
+g.Start()                       // Start the gopher
 
 g.Activity = gopher.Loving      // Change the gophers activity. Default is Waiting.
 g.Color = gopher.Magenta        // Change the gophers color. Default is White.
 g.Prefix = g.Activity.String()  // Add prefix text
 g.Suffix = "golang"             // Add suffix text
 
-time.Sleep(4 * time.Second) // Run for some time to simulate some serious work
+time.Sleep(4 * time.Second)     // Run for some time to simulate some serious work
 
-g.Stop() // Stop the gopher
+g.Stop()                        // Stop the gopher
 ```
 
 To simply print a gopher use
