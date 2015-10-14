@@ -46,6 +46,8 @@ Gopher currently supports four different gopher activities: *Waiting, Wondering,
 
 Want to see gophers in action, checkout the examples or build your own!
 
+![](./examples/gopher.gif)
+
 ## Contribution
 
 Please feel free to suggest any kind of improvements, refactorings or just more funny gopher activities.
