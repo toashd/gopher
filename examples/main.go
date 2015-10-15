@@ -7,35 +7,34 @@ import (
 )
 
 func main() {
-
 	g := gopher.New()
-	g.Start() // Start the gopher
+	g.Start() // Start the gopher with default values
 
 	time.Sleep(4 * time.Second) // Run for some time to simulate work
 
-	g.Activity = gopher.Wondering // Changes the gophers activity
+	g.SetActivity(gopher.Wondering) // Changes the gophers activity
 
 	time.Sleep(4 * time.Second) // Run for some time to simulate work
 
-	g.Color = gopher.Green
+	g.SetColor(gopher.Green)
 
 	time.Sleep(4 * time.Second) // Run for some time to simulate work
 
-	g.Prefix = "Hey yo!"
+	g.SetPrefix("Hey yo!")
 
 	time.Sleep(4 * time.Second) // Run for some time to simulate work
 
-	g.Activity = gopher.Boring
-	g.Color = gopher.Yellow // Changes the gophers color
-	g.Prefix = ""
-	g.Suffix = "Whats up?"
+	g.SetActivity(gopher.Boring)
+	g.SetColor(gopher.Yellow) // Changes the gophers color
+	g.SetPrefix("")
+	g.SetSuffix("Whats up?")
 
 	time.Sleep(4 * time.Second) // Run for some time to simulate work
 
-	g.Activity = gopher.Loving
-	g.Color = gopher.Magenta
-	g.Prefix = g.Activity.String()
-	g.Suffix = ""
+	g.SetActivity(gopher.Loving)
+	g.SetColor(gopher.Magenta)
+	g.SetPrefix(gopher.Loving.String())
+	g.SetSuffix("")
 
 	time.Sleep(8 * time.Second) // Run for some time to simulate work
 

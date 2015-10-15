@@ -7,8 +7,8 @@ import (
 
 // TestNew verifies that the returned instance is of the proper type.
 func TestNew(t *testing.T) {
-	s := New()
-	if reflect.TypeOf(s).String() != "*gopher.Gopher" {
+	g := New()
+	if reflect.TypeOf(g).String() != "*gopher.Gopher" {
 		t.Error("New returned incorrect type")
 	}
 }

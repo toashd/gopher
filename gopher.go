@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"sync"
 	"time"
 
 	"github.com/mattn/go-colorable"
@@ -18,11 +19,11 @@ const (
 )
 
 // Activity is a type for the gopher activity.
-type activity uint8
+type Activity uint8
 
-//go:generate stringer -type=activity
+//go:generate stringer -type=Activity
 const (
-	Waiting activity = iota
+	Waiting Activity = iota
 	Wondering
 	Boring
 	Loving
@@ -63,11 +64,12 @@ const escape = "\x1b"
 
 // Gopher holds the acting gopher.
 type Gopher struct {
-	Delay    time.Duration // motion delay
-	Prefix   string        // prefix message
-	Suffix   string        // suffix message
-	Activity activity      // gopher activity
-	Color    Color         // gopher color
+	mu       sync.RWMutex
+	delay    time.Duration // motion delay
+	prefix   string        // prefix message
+	suffix   string        // suffix message
+	activity Activity      // gopher activity
+	color    Color         // gopher color
 	state    state         // current state
 	w        io.Writer     // writer interface
 	done     chan struct{} // channel to stop the gopher
@@ -76,9 +78,9 @@ type Gopher struct {
 // New creates a new gopher with default values.
 func New() *Gopher {
 	g := &Gopher{
-		Delay:    1000 * time.Millisecond,
-		Activity: Waiting,
-		Color:    White,
+		delay:    1000 * time.Millisecond,
+		activity: Waiting,
+		color:    White,
 		w:        colorable.NewColorableStdout(),
 		done:     make(chan struct{}, 1),
 	}
@@ -103,8 +105,8 @@ func (g *Gopher) Start() {
 					return
 				default:
 					g.clearOutput()
-					fmt.Fprintf(g.w, ("\r" + gopher), g.Prefix, g.Color, string(runes[i]), string(runes[i]), g.Suffix)
-					time.Sleep(g.Delay)
+					fmt.Fprintf(g.w, ("\r" + gopher), g.prefix, g.color, string(runes[i]), string(runes[i]), g.suffix)
+					time.Sleep(g.delay)
 				}
 			}
 		}
@@ -120,12 +122,49 @@ func (g *Gopher) Stop() {
 	}
 }
 
+// SetDelay sets the gophers spinning delay.
+func (g *Gopher) SetDelay(d time.Duration) {
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	g.delay = d
+}
+
+// SetActivity sets the gophers activity.
+func (g *Gopher) SetActivity(a Activity) {
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	g.activity = a
+}
+
+// SetColor sets the gophers color.
+func (g *Gopher) SetColor(c Color) {
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	g.color = c
+}
+
+// SetPrefix sets the prepended text.
+func (g *Gopher) SetPrefix(s string) {
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	g.prefix = s
+}
+
+// SetSuffix sets the appended text.
+func (g *Gopher) SetSuffix(s string) {
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	g.suffix = s
+}
+
 // String prints a gopher.
 func (g *Gopher) String() string { return "`( ◔ ౪◔)´" }
 
 // Returns the runes for the current activity.
 func (g *Gopher) runes() ([]rune, error) {
-	switch g.Activity {
+	g.mu.RLock()
+	defer g.mu.RUnlock()
+	switch g.activity {
 	case Waiting:
 		return []rune(waiting), nil
 	case Wondering:
@@ -141,8 +180,10 @@ func (g *Gopher) runes() ([]rune, error) {
 
 // Resets all escape attributes and clears the output.
 func (g *Gopher) clearOutput() {
+	g.mu.RLock()
+	defer g.mu.RUnlock()
 	// clear output
-	fmt.Fprintf(g.w, "\033[%dD", len(g.Prefix+gopher+g.Suffix))
+	fmt.Fprintf(g.w, "\033[%dD", len(g.prefix+gopher+g.suffix))
 	// reset escape attributes
 	fmt.Fprintf(g.w, "%s[K", escape)
 }

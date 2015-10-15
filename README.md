@@ -23,17 +23,19 @@ import "github.com/toashd/gopher"
 Create a new gopher
 
 ```go
-g := gopher.New()
-g.Start()                       // Start the gopher
+g := gopher.New()                   // Create gopher with default values
+g.Start()                           // Start the gopher
 
-g.Activity = gopher.Loving      // Change the gophers activity. Default is Waiting.
-g.Color = gopher.Magenta        // Change the gophers color. Default is White.
-g.Prefix = g.Activity.String()  // Add prefix text
-g.Suffix = "golang"             // Add suffix text
+time.Sleep(4 * time.Second)         // Run for some time to simulate some serious work
 
-time.Sleep(4 * time.Second)     // Run for some time to simulate some serious work
+g.SetActivity(gopher.Loving)        // Change the gophers activity
+g.SetColor(gopher.Magenta)          // Change the gophers color
+g.SetPrefix(gopher.Loving.String()) // Prepend text
+g.SetSuffix("golang")               // Append text
 
-g.Stop()                        // Stop the gopher
+time.Sleep(4 * time.Second)         // Run for some time to simulate some serious work
+
+g.Stop()                            // Stop the gopher
 ```
 
 To simply print a gopher use
