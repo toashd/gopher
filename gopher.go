@@ -7,8 +7,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"os"
 	"time"
+
+	"github.com/mattn/go-colorable"
 )
 
 // Gopher template string `( ◔ ౪◔)´
@@ -78,7 +79,7 @@ func New() *Gopher {
 		Delay:    1000 * time.Millisecond,
 		Activity: Waiting,
 		Color:    White,
-		w:        os.Stdout,
+		w:        colorable.NewColorableStdout(),
 		done:     make(chan struct{}, 1),
 	}
 	return g
@@ -102,7 +103,7 @@ func (g *Gopher) Start() {
 					return
 				default:
 					g.clearOutput()
-					fmt.Printf(("\r" + gopher), g.Prefix, g.Color, string(runes[i]), string(runes[i]), g.Suffix)
+					fmt.Fprintf(g.w, ("\r" + gopher), g.Prefix, g.Color, string(runes[i]), string(runes[i]), g.Suffix)
 					time.Sleep(g.Delay)
 				}
 			}
