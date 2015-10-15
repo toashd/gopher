@@ -190,5 +190,5 @@ func (g *Gopher) clearOutput() {
 
 // Finalizes output.
 func (g *Gopher) finalize() {
-	fmt.Println("\r  `( ◔ ౪◔)´  I'm done ...")
+	fmt.Fprintf(g.w, "\r  `( ◔ ౪◔)´  I'm done ...\n")
 }
