@@ -3,6 +3,7 @@ Gopher renders little `( ◔ ౪◔)´ to the command line.
 
 Use gopher just for pure fun or more meaningful as a loading spinner.
 
+[![GoDoc](https://godoc.org/github.com/toashd/gopher?status.svg)](https://godoc.org/github.com/toashd/gopher)
 [![CI Status](http://img.shields.io/travis/toashd/gopher.svg?style=flat)](https://travis-ci.org/toashd/gopher)
 
 ## Installation
@@ -53,7 +54,8 @@ Want to see gophers in action, checkout the examples or build your own!
 ## Contribution
 
 Please feel free to suggest any kind of improvements, refactorings or just more funny gopher activities.
-Get in touch, file an issue, fork and submit a pull requests.
+
+Get in touch, file an issue, fork and submit a pull request.
 
 ## Get in touch
 
